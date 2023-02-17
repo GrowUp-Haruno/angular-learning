@@ -8,6 +8,10 @@ import { MEMBERS } from 'src/mock-members';
   styleUrls: ['./members.component.scss'],
 })
 export class MembersComponent {
-  members = MEMBERS
-  member: Member = { id: 1, name: '田中太郎' };
+  members = MEMBERS;
+  selectedMember: Member | undefined;
+
+  onSelect(member: Member): void {
+    this.selectedMember = member;
+  }
 }
