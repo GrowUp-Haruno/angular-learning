@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Member } from 'src/app/member';
 import { MemberService } from '../member.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-members',
@@ -12,20 +13,25 @@ export class MembersComponent {
   selectedMember: Member | undefined;
 
   // Dependency Injectionを用いている
-  constructor(private MemberService: MemberService) {}
-
-  // ReactのuseEffectに相当
-  ngOnInit(): void {
-    this.getMembers();
-  }
+  constructor(
+    private memberService: MemberService,
+    private messageService: MessageService
+  ) {}
 
   onSelect(member: Member): void {
     this.selectedMember = member;
+    this.messageService.add(
+      `MembersComponent: ${member.name}さんを選択しました`
+    );
   }
 
   getMembers(): void {
-    this.MemberService.getMember().subscribe(
-      (members) => (this.members = members)
-    );
+    this.memberService
+      .getMember()
+      .subscribe((members) => (this.members = members));
+  }
+  // ReactのuseEffectに相当
+  ngOnInit(): void {
+    this.getMembers();
   }
 }
