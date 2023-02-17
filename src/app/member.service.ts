@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Member } from 'src/app/member';
 import { MEMBERS } from 'src/mock-members';
 
@@ -8,8 +9,8 @@ import { MEMBERS } from 'src/mock-members';
 export class MemberService {
   constructor() {}
 
-  getMember(): Member[] {
+  getMember(): Observable<Member[]> {
     // 実際にはバックエンドから拾ったデータを返す
-    return MEMBERS;
+    return of(MEMBERS);
   }
 }
